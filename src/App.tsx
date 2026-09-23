@@ -18,7 +18,7 @@ function getRoute() {
 
 function CatalogLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="catalog-layout">
+    <div className="home-page catalog-layout">
       <BarraSuperior />
       <main>{children}</main>
       <Footer />
