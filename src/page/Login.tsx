@@ -69,7 +69,7 @@ export default function Login({ onMicrosoftLogin, busy }: LoginProps) {
               {busy ? "Conectando..." : "Continuar con Microsoft"}
             </button>
           </form>
-          <p className="login-foot">¿No tenés cuenta? <a href="#/registro">Creá una</a></p>
+          <p className="login-foot"><a href="#inicio">Volver al inicio</a></p>
         </div>
       </section>
       </main>
