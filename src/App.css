@@ -150,6 +150,9 @@ h1 em { color: var(--orange-bright); font-style: normal; }
 @media (max-width: 700px) {
 	.container { width: min(100% - 2rem, 1100px); }
 	.nav-bar { min-height: 68px; }.nav-links { display: none; }
+	.auth-page-layout .nav-bar { flex-wrap: wrap; gap: .5rem 1rem; padding-block: .75rem; }
+	.auth-page-layout .nav-links { display: flex; order: 3; width: 100%; justify-content: space-between; margin: 0; }
+	.auth-page-layout .nav-bar .button-small { padding: .5rem .55rem; font-size: .72rem; }
 	.hero-section { padding: 4.5rem 0; }.hero-grid { grid-template-columns: 1fr; gap: 3rem; } .hero-stat { max-width: 420px; width: 100%; margin: 0 auto; }
 	h1 { font-size: clamp(2.8rem, 14vw, 4.2rem); }.product-grid { grid-template-columns: 1fr; max-width: 420px; }
 	.updates-grid { grid-template-columns: 1fr; max-width: 420px; }

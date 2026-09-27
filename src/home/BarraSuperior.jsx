@@ -1,17 +1,10 @@
 import NavegacionSuperior from './NavegacionSuperior.jsx'
 import { useMsal, useIsAuthenticated } from '@azure/msal-react'
 import { InteractionStatus } from '@azure/msal-browser'
-import { loginRequest } from '../authConfig'
 
 export default function BarraSuperior() {
   const { instance, inProgress } = useMsal()
   const isAuthenticated = useIsAuthenticated()
-
-  const handleLogin = () => {
-    if (inProgress === InteractionStatus.None) {
-      instance.loginRedirect(loginRequest).catch((error) => console.error(error))
-    }
-  }
 
   const handleLogout = () => {
     if (inProgress === InteractionStatus.None) {
@@ -36,13 +29,9 @@ export default function BarraSuperior() {
             Cerrar sesión
           </button>
         ) : (
-          <button
-            className="button button-primary button-small"
-            onClick={handleLogin}
-            disabled={inProgress !== InteractionStatus.None}
-          >
+          <a className="button button-primary button-small" href="#/login">
             Iniciar sesión
-          </button>
+          </a>
         )}
       </nav>
     </header>

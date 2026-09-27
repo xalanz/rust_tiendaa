@@ -9,6 +9,8 @@ import Footer from "./home/Footer.jsx";
 import Armas from "./page/Armas.jsx";
 import Herramientas from "./page/Herramientas.jsx";
 import Home from "./page/Home.jsx";
+import Login from "./page/Login";
+import Registro from "./page/Registro";
 import Ropa from "./page/Ropa.jsx";
 import "./App.css";
 
@@ -57,6 +59,14 @@ export default function App() {
 
   if (route === "inicio") {
     return <Home />;
+  }
+
+  if (route === "login") {
+    return <Login onMicrosoftLogin={handleLogin} busy={inProgress !== InteractionStatus.None} />;
+  }
+
+  if (route === "registro") {
+    return <Registro />;
   }
 
   if (route === "armas") {
