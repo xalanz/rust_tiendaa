@@ -16,7 +16,11 @@ export function TarjetaProducto({ product }) {
     <article className="product-card">
       <div className="product-art">
         {product.tag && <span className="product-tag">{product.tag}</span>}
-        <span className="product-symbol" aria-hidden="true" />
+        {product.image ? (
+          <img className="product-image" src={product.image} alt={product.name} />
+        ) : (
+          <span className="product-symbol" aria-hidden="true" />
+        )}
       </div>
       <div className="product-info">
         <h3>{product.name}</h3>
