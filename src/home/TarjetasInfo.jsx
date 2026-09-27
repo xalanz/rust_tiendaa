@@ -11,7 +11,7 @@ export function TarjetaEstadistica() {
   )
 }
 
-export function TarjetaProducto({ product }) {
+export function TarjetaProducto({ product, onAddToCart }) {
   return (
     <article className="product-card">
       <div className="product-art">
@@ -26,7 +26,9 @@ export function TarjetaProducto({ product }) {
         <h3>{product.name}</h3>
         <div className="product-footer">
           <span className="price">${product.price.toLocaleString('es-AR')}</span>
-          <button className="add-button" type="button">Agregar</button>
+          <button className="add-button" type="button" onClick={() => onAddToCart?.(product)}>
+            Agregar
+          </button>
         </div>
       </div>
     </article>

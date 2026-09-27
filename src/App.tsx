@@ -17,11 +17,67 @@ function getRoute() {
   return window.location.hash.replace(/^#\/?/, "") || "inicio";
 }
 
-function CatalogLayout({ children }: { children: ReactNode }) {
+function CatalogLayout({
+  children,
+  cart,
+  onAddToCart,
+  onRemoveFromCart,
+  onClearCart,
+}: {
+  children: ReactNode;
+  cart: Array<{ name: string; price: number; quantity: number }>;
+  onAddToCart: (product: { name: string; price: number }) => void;
+  onRemoveFromCart: (name: string) => void;
+  onClearCart: () => void;
+}) {
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
     <div className="home-page catalog-layout">
       <BarraSuperior />
-      <main>{children}</main>
+      <div className="catalog-shell">
+        <main>{children}</main>
+        <aside className="cart-panel">
+          <div className="cart-header">
+            <h3>Carrito</h3>
+            <span>{cart.reduce((sum, item) => sum + item.quantity, 0)} items</span>
+          </div>
+
+          {cart.length === 0 ? (
+            <p className="cart-empty">Tu carrito está vacío.</p>
+          ) : (
+            <div className="cart-items">
+              {cart.map((item) => (
+                <div key={item.name} className="cart-item">
+                  <div>
+                    <strong>{item.name}</strong>
+                    <span>{item.quantity} x ${item.price.toLocaleString('es-AR')}</span>
+                  </div>
+                  <div className="cart-item-actions">
+                    <span>${(item.price * item.quantity).toLocaleString('es-AR')}</span>
+                    <div className="cart-control-row">
+                      <button type="button" className="qty-button" onClick={() => onRemoveFromCart(item.name)}>-</button>
+                      <span className="qty-label">{item.quantity}</span>
+                      <button type="button" className="qty-button" onClick={() => onAddToCart(item)}>+</button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="cart-total">
+            <span>Total</span>
+            <strong>${total.toLocaleString('es-AR')}</strong>
+          </div>
+          {cart.length > 0 && (
+            <button type="button" className="clear-cart-button" onClick={onClearCart}>
+              Vaciar carrito
+            </button>
+          )}
+          <button className="checkout-button" type="button">Finalizar compra</button>
+        </aside>
+      </div>
       <Footer />
     </div>
   );
@@ -32,6 +88,39 @@ export default function App() {
   const isAuthenticated = useIsAuthenticated();
   const currentUser = accounts[0];
   const [route, setRoute] = useState(getRoute);
+  const [cart, setCart] = useState<Array<{ name: string; price: number; quantity: number }>>([]);
+
+  const addToCart = (product: { name: string; price: number }) => {
+    setCart((currentCart) => {
+      const existingItem = currentCart.find((item) => item.name === product.name);
+
+      if (existingItem) {
+        return currentCart.map((item) =>
+          item.name === product.name
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+
+      return [...currentCart, { ...product, quantity: 1 }];
+    });
+  };
+
+  const removeFromCart = (name: string) => {
+    setCart((currentCart) =>
+      currentCart
+        .map((item) =>
+          item.name === name
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  const clearCart = () => {
+    setCart([]);
+  };
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -66,24 +155,39 @@ export default function App() {
 
   if (route === "armas") {
     return (
-      <CatalogLayout>
-        <Armas />
+      <CatalogLayout
+        cart={cart}
+        onAddToCart={addToCart}
+        onRemoveFromCart={removeFromCart}
+        onClearCart={clearCart}
+      >
+        <Armas onAddToCart={addToCart} />
       </CatalogLayout>
     );
   }
 
   if (route === "ropa") {
     return (
-      <CatalogLayout>
-        <Ropa />
+      <CatalogLayout
+        cart={cart}
+        onAddToCart={addToCart}
+        onRemoveFromCart={removeFromCart}
+        onClearCart={clearCart}
+      >
+        <Ropa onAddToCart={addToCart} />
       </CatalogLayout>
     );
   }
 
   if (route === "herramientas") {
     return (
-      <CatalogLayout>
-        <Herramientas />
+      <CatalogLayout
+        cart={cart}
+        onAddToCart={addToCart}
+        onRemoveFromCart={removeFromCart}
+        onClearCart={clearCart}
+      >
+        <Herramientas onAddToCart={addToCart} />
       </CatalogLayout>
     );
   }
