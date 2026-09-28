@@ -28,14 +28,12 @@ function toCardItem(product) {
 }
 
 export function useCatalog(category) {
-  const [items, setItems] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  // Mientras cambia de categoría se conservan los datos anteriores, para no
+  // parpadear a una lista vacía en cada clic del menú.
+  const [state, setState] = useState({ category: null, items: [], error: null })
 
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    setError(null)
 
     // GET /catalog es público: no necesita token.
     fetch(`${import.meta.env.VITE_API_URL}/catalog?category=${category}`)
@@ -44,13 +42,10 @@ export function useCatalog(category) {
         return res.json()
       })
       .then((data) => {
-        if (!cancelled) setItems(data.items.map(toCardItem))
+        if (!cancelled) setState({ category, items: data.items.map(toCardItem), error: null })
       })
       .catch((err) => {
-        if (!cancelled) setError(err.message)
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
+        if (!cancelled) setState((prev) => ({ category, items: prev.items, error: err.message }))
       })
 
     return () => {
@@ -58,5 +53,9 @@ export function useCatalog(category) {
     }
   }, [category])
 
-  return { items, loading, error }
+  return {
+    items: state.items,
+    loading: state.category !== category,
+    error: state.category === category ? state.error : null,
+  }
 }

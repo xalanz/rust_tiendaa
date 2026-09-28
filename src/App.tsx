@@ -5,6 +5,7 @@ import { InteractionStatus } from "@azure/msal-browser";
 import { loginRequest } from "./authConfig";
 import { ProtectedData } from "./ProtectedData";
 import { CheckoutButton } from "./CheckoutButton";
+import { renderPrivateRoute } from "./privateRoutes";
 import Pedidos from "./page/Pedidos";
 import BarraSuperior from "./home/BarraSuperior.jsx";
 import Footer from "./home/Footer.jsx";
@@ -155,6 +156,9 @@ export default function App() {
     return <Login onMicrosoftLogin={handleLogin} busy={inProgress !== InteractionStatus.None} />;
   }
 
+  const privatePage = renderPrivateRoute(route);
+  if (privatePage) return privatePage;
+  
   if (route === "armas") {
     return (
       <CatalogLayout

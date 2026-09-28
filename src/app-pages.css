@@ -1,0 +1,107 @@
+/* src/app-pages.css — dashboard, catálogo admin, reportes y auditoría.
+   Usa las variables definidas en .home-page (App.css). */
+
+/* Con más enlaces por rol, el menú puede pasar a dos filas */
+.nav-links { gap: 1.4rem; flex-wrap: wrap; justify-content: flex-end; }
+
+.app-page { padding: 2.5rem 0 4rem; }
+.page-title { font-size: 1.6rem; }
+.page-subtitle { color: var(--muted); margin: .3rem 0 1.5rem; font-size: .9rem; }
+.muted { color: var(--muted); font-size: .8rem; }
+
+.access-box {
+  max-width: 520px; margin: 3rem auto; padding: 2rem;
+  border: 1px solid var(--line); background: rgba(22, 24, 22, .9); text-align: center;
+}
+.access-box h1 { font-size: 1.4rem; margin-bottom: .75rem; }
+.access-box p { color: var(--muted); margin-top: .5rem; }
+.access-box a, .panel-link a { color: var(--orange-bright); text-decoration: underline; }
+
+/* Tarjetas y paneles */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+.kpi-card { padding: 1.1rem 1.2rem; border: 1px solid var(--line); background: rgba(22, 24, 22, .9); }
+.kpi-card span { display: block; color: var(--muted); font-size: .78rem; margin-bottom: .4rem; }
+.kpi-card strong { font-size: 1.5rem; color: var(--amber); }
+
+.panel { padding: 1.25rem; border: 1px solid var(--line); background: rgba(22, 24, 22, .9); margin-bottom: 1.25rem; }
+.panel h2 { font-size: 1.05rem; margin-bottom: .75rem; }
+.panel-note { color: var(--muted); font-size: .78rem; margin: -.4rem 0 .75rem; }
+.panel-link { margin-top: 1rem; font-size: .85rem; }
+.panel-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem; }
+.panel-grid .panel { margin-bottom: 0; }
+.panel-grid { margin-bottom: 1.25rem; }
+
+.badge-row { display: flex; flex-wrap: wrap; gap: .9rem; }
+.badge-count { display: inline-flex; align-items: center; gap: .4rem; font-size: .9rem; }
+
+.mini-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.mini-list li {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: .65rem .8rem; border: 1px solid rgba(255, 255, 255, .05); background: rgba(255, 255, 255, .02);
+}
+.mini-list li > div:first-child { display: grid; gap: .15rem; }
+.mini-list-right { display: flex; align-items: center; gap: .8rem; }
+
+/* Gráficos */
+.chart { width: 100%; height: auto; display: block; }
+.chart-grid { stroke: var(--line); stroke-dasharray: 3 3; }
+.chart-axis { fill: var(--muted); font-size: 10px; }
+.chart-bar { fill: var(--orange-bright); }
+.chart-bar:hover { fill: var(--amber); }
+
+.hbars { display: grid; gap: .65rem; }
+.hbar-row { display: grid; grid-template-columns: minmax(90px, 30%) 1fr auto; gap: .75rem; align-items: center; font-size: .85rem; }
+.hbar-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hbar-track { height: 10px; background: rgba(255, 255, 255, .06); border-radius: 999px; overflow: hidden; }
+.hbar-fill { height: 100%; background: var(--orange-bright); border-radius: 999px; min-width: 2px; }
+.hbar-value { color: var(--muted); font-size: .78rem; white-space: nowrap; }
+.fill-CREADO { background: var(--amber); }
+.fill-ACEPTADO { background: #7fb8ff; }
+.fill-EN_PREPARACION { background: var(--orange-bright); }
+.fill-DESPACHADO { background: #c39bff; }
+.fill-ENTREGADO { background: #7fd48a; }
+.fill-CANCELADO { background: #ff8a7a; }
+
+/* Formularios */
+.form-panel { margin-bottom: 1.25rem; }
+.form-grid, .filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; }
+.filters { align-items: end; margin-bottom: 1.25rem; }
+.field { display: grid; gap: .35rem; font-size: .78rem; color: var(--muted); }
+.field-wide { grid-column: 1 / -1; }
+.field input, .field select {
+  background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  border-radius: 3px; padding: .55rem .7rem; font-size: .9rem;
+}
+.field input:disabled { opacity: .5; }
+.form-actions { display: flex; gap: .6rem; margin-top: 1rem; flex-wrap: wrap; }
+.filters .form-actions { margin-top: 0; grid-column: 1 / -1; }
+
+/* Tabla del catálogo */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); }
+.data-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.data-table th, .data-table td { padding: .75rem .9rem; text-align: left; border-bottom: 1px solid var(--line); }
+.data-table th { color: var(--muted); font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; background: rgba(255, 255, 255, .02); }
+.data-table tr:last-child td { border-bottom: none; }
+.tag-chip { margin-left: .5rem; padding: .1rem .45rem; border: 1px solid var(--line); border-radius: 999px; color: var(--amber); font-size: .68rem; }
+.stock-cell { display: flex; align-items: center; gap: .5rem; }
+.qty-mini {
+  width: 1.6rem; height: 1.6rem; border: 1px solid var(--line); border-radius: 3px;
+  background: transparent; color: var(--text); cursor: pointer; line-height: 1;
+}
+.qty-mini:hover:not(:disabled) { border-color: var(--orange-bright); color: var(--orange-bright); }
+.qty-mini:disabled { opacity: .4; cursor: not-allowed; }
+.low-stock { color: #ff8a7a; font-weight: 700; }
+.low-stock-note { color: #ff8a7a; font-size: .7rem; }
+
+/* Timeline de auditoría */
+.timeline { list-style: none; margin: 1rem 0 0; padding: 0 0 0 .5rem; border-left: 2px solid var(--line); display: grid; gap: 1rem; }
+.timeline-item { position: relative; padding-left: 1.4rem; }
+.timeline-dot {
+  position: absolute; left: -.5rem; top: .35rem; width: .7rem; height: .7rem;
+  border-radius: 50%; background: var(--orange-bright); box-shadow: 0 0 0 3px var(--black);
+}
+.timeline-body { padding: .8rem 1rem; border: 1px solid var(--line); background: rgba(22, 24, 22, .9); }
+.timeline-head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.timeline-line { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-top: .5rem; }
+.timeline-meta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .5rem; color: var(--muted); font-size: .78rem; }
+.link-button { background: none; border: none; padding: 0; color: var(--orange-bright); cursor: pointer; text-decoration: underline; font-size: .78rem; }
