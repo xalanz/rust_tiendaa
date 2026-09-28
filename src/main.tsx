@@ -10,23 +10,27 @@ import './index.css';
 // 1. Crear la instancia global
 const msalInstance = new PublicClientApplication(msalConfig);
 
-// 2. Manejar la cuenta activa en la carga inicial o eventos
-if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0) {
-  msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
-}
-
-msalInstance.addEventCallback((event: EventMessage) => {
-  if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
-    const payload = event.payload as AuthenticationResult;
-    msalInstance.setActiveAccount(payload.account);
+// 2. Inicializar ANTES de usar cualquier otro método de MSAL
+msalInstance.initialize().then(() => {
+  // 3. Manejar la cuenta activa en la carga inicial
+  if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0) {
+    msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
   }
-});
 
-// 3. Renderizar envolviendo <App /> dentro de <MsalProvider>
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <MsalProvider instance={msalInstance}>
-      <App />
-    </MsalProvider>
-  </React.StrictMode>
-);
+  // 4. Actualizar la cuenta activa tras cada login exitoso
+  msalInstance.addEventCallback((event: EventMessage) => {
+    if (event.eventType === EventType.LOGIN_SUCCESS && event.payload) {
+      const payload = event.payload as AuthenticationResult;
+      msalInstance.setActiveAccount(payload.account);
+    }
+  });
+
+  // 5. Renderizar solo cuando MSAL ya está listo
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <React.StrictMode>
+      <MsalProvider instance={msalInstance}>
+        <App />
+      </MsalProvider>
+    </React.StrictMode>
+  );
+});
