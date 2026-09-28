@@ -4,6 +4,7 @@ export default function NavegacionSuperior() {
       <a href="#/armas">Armas</a>
       <a href="#/ropa">Ropa</a>
       <a href="#/herramientas">Herramientas</a>
+      <a href="#/pedidos">Pedidos</a>
     </div>
   )
 }
