@@ -14,7 +14,7 @@ export function ProtectedData() {
     setError(null);
     try {
       // Ejemplo: Llamar a Microsoft Graph API o a tu Backend protegido
-      const res = await fetchWithToken('https://graph.microsoft.com/v1.0/me');
+      const res = await fetchWithToken(`${import.meta.env.VITE_API_URL}/me`);
       if (!res.ok) throw new Error(`Error en la API: ${res.statusText}`);
       
       const json = await res.json();

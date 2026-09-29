@@ -22,5 +22,5 @@ export const msalConfig: Configuration = {
 };
 
 export const loginRequest = {
-  scopes: ['User.Read'],
+  scopes: [import.meta.env.VITE_AZURE_API_SCOPE],
 };

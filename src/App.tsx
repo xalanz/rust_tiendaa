@@ -4,6 +4,9 @@ import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { InteractionStatus } from "@azure/msal-browser";
 import { loginRequest } from "./authConfig";
 import { ProtectedData } from "./ProtectedData";
+import { CheckoutButton } from "./CheckoutButton";
+import { renderPrivateRoute } from "./privateRoutes";
+import Pedidos from "./page/Pedidos";
 import BarraSuperior from "./home/BarraSuperior.jsx";
 import Footer from "./home/Footer.jsx";
 import Armas from "./page/Armas.jsx";
@@ -75,7 +78,7 @@ function CatalogLayout({
               Vaciar carrito
             </button>
           )}
-          <button className="checkout-button" type="button">Finalizar compra</button>
+          <CheckoutButton cart={cart} onSuccess={onClearCart} />
         </aside>
       </div>
       <Footer />
@@ -153,6 +156,9 @@ export default function App() {
     return <Login onMicrosoftLogin={handleLogin} busy={inProgress !== InteractionStatus.None} />;
   }
 
+  const privatePage = renderPrivateRoute(route);
+  if (privatePage) return privatePage;
+  
   if (route === "armas") {
     return (
       <CatalogLayout
@@ -191,6 +197,13 @@ export default function App() {
       </CatalogLayout>
     );
   }
+
+  if (route === "pedidos") { 
+    return (
+    <div className="home-page">
+      <BarraSuperior /><main className="container"><Pedidos /></main><Footer />
+    </div>
+  ); }
 
   return (
     <div className="layout">
