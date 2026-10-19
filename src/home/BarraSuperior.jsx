@@ -1,6 +1,7 @@
 import NavegacionSuperior from './NavegacionSuperior.jsx'
 import { useMsal, useIsAuthenticated } from '@azure/msal-react'
 import { InteractionStatus } from '@azure/msal-browser'
+import { NotificationBell } from '../NotificationBell'
 
 export default function BarraSuperior() {
   const { instance, inProgress } = useMsal()
@@ -20,6 +21,7 @@ export default function BarraSuperior() {
         </a>
         <NavegacionSuperior />
         <a className="button button-primary button-small" href="#/armas">Ver skins</a>
+        <NotificationBell />
         {isAuthenticated ? (
           <button
             className="button button-secondary button-small"

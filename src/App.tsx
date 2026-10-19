@@ -134,6 +134,8 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
+  /* console.log */
+
   const handleLogin = () => {
     if (inProgress === InteractionStatus.None) {
       instance.loginRedirect(loginRequest).catch((error) => console.error(error));
