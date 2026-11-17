@@ -34,10 +34,10 @@ export const STATUS_LABELS: Record<string, string> = {
 };
 
 export const EVENT_LABELS: Record<string, string> = {
-  OrderCreated: 'Pedido creado',
-  OrderAccepted: 'Pedido aceptado',
-  OrderPreparing: 'Pedido en preparación',
-  OrderDispatched: 'Pedido despachado',
-  OrderDelivered: 'Pedido entregado',
-  OrderCancelled: 'Pedido cancelado',
+  PEDIDO_CREADO: 'Pedido creado',
+  PEDIDO_ACEPTADO: 'Pedido aceptado',
+  PEDIDO_EN_PREPARACION: 'Pedido en preparación',
+  PEDIDO_DESPACHADO: 'Pedido despachado',
+  PEDIDO_ENTREGADO: 'Pedido entregado',
+  PEDIDO_CANCELADO: 'Pedido cancelado',
 };

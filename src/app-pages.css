@@ -1,8 +1,19 @@
 /* src/app-pages.css — dashboard, catálogo admin, reportes y auditoría.
    Usa las variables definidas en .home-page (App.css). */
 
-/* Con más enlaces por rol, el menú puede pasar a dos filas */
-.nav-links { gap: 1.4rem; flex-wrap: wrap; justify-content: flex-end; }
+/* Navegación: ajusta enlaces para evitar desalineaciones cuando hay más opciones por rol */
+.nav-bar { gap: 1rem; flex-wrap: wrap; row-gap: .5rem; }
+.nav-links {
+  gap: 1rem 1.25rem;
+  flex: 1 1 420px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0;
+  margin-right: 0;
+}
+.nav-bar .button { flex: 0 0 auto; }
+.nav-bar .notif-wrap { flex: 0 0 auto; }
 
 .app-page { padding: 2.5rem 0 4rem; }
 .page-title { font-size: 1.6rem; }
